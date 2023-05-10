@@ -32,7 +32,7 @@ jobs:
 
         # Build angular app with prod configuration
       - name: Build dev app
-        run: npm run build --configuration production
+        run: npm run build --configuration=production
 
         # Archive dev artifact
       - name: Archive dev artifact
