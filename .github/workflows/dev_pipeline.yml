@@ -1,19 +1,19 @@
 #######################################################
-#   Deploy the production angular application         #
+#   Deploy the development angular application        #
 #######################################################
-name: production frontend pipeline
+name: development frontend pipeline
 
 on:
   push:
     branches: 
-      - 'prod'
+      - 'dev'
   pull_request:
     branches: 
-      - 'prod'
+      - 'dev'
 
 jobs:
   fe-build-and-deploy:
-    name: Prod Frontend - Build and Deploy
+    name: Dev Frontend - Build and Deploy
     runs-on: ubuntu-latest
     steps:
         # Initial pipeline setup 
@@ -42,12 +42,12 @@ jobs:
           path: ./public
           
         # Deploy app to Firebase
-      - name: Deploy app to firebase (prod-cs-careers-vt-website)
+      - name: Deploy app to firebase (dev-cs-careers-vt-website)
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_PROD_SA_KEY }}
-          PROJECT_ID: "prod-cs-careers-vt-website"
+          PROJECT_ID: "dev-cs-careers-vt-website"
           PROJECT_PATH: "./"
       - run: echo "If you made it this far, high fives all around!"
