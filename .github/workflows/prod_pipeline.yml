@@ -1,0 +1,53 @@
+#######################################################
+#   Deploy the production angular application         #
+#######################################################
+name: production frontend pipeline
+
+on:
+  push:
+    branches: 
+      - 'prod'
+  pull_request:
+    branches: 
+      - 'prod'
+
+jobs:
+  fe-build-and-deploy:
+    name: Prod Frontend - Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+        # Initial pipeline setup 
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Initialize Node and Cache Dependencies
+        uses: actions/setup-node@master
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+        # Install node dependencies
+      - name: Install Dependencies
+        run: npm install
+
+        # Build angular app with prod configuration
+      - name: Build dev app
+        run: npm run build:prod
+
+        # Archive dev artifact
+      - name: Archive dev artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: public
+          path: ./frontend/public
+          
+        # Deploy app to Firebase
+      - name: Deploy app to firebase (prod-cs-careers-vt-website)
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_PROD_SA_KEY }}
+          PROJECT_ID: "prod-cs-careers-vt-website"
+          PROJECT_PATH: "./"
+      - run: echo "If you made it this far, high fives all around!"
