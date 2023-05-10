@@ -1,0 +1,46 @@
+#######################################################
+#   Deploy the development angular application        #
+#######################################################
+name: development frontend pipeline
+
+on:
+  push:
+    branches: 
+      - 'dev'
+  pull_request:
+    branches: 
+      - 'dev'
+
+jobs:
+  fe-build-and-deploy:
+    name: Dev Frontend - Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+        # Initial pipeline setup 
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Initialize Node and Cache Dependencies
+        uses: actions/setup-node@master
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+        # Install node dependencies
+      - name: Install Dependencies
+        run: npm install
+
+        # Build angular app with prod configuration
+      - name: Build dev app
+        run: npm run build --configuration=development
+          
+        # Deploy app to Firebase
+      - name: Deploy app to firebase (dev-cs-careers-vt-website)
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_DEV_SA_KEY }}
+          PROJECT_ID: "dev-cs-careers-vt-website"
+          PROJECT_PATH: "./"
+      - run: echo "If you made it this far, high fives all around!"

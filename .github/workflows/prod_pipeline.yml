@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: package-lock.json
 
         # Install node dependencies
       - name: Install Dependencies
@@ -32,14 +32,7 @@ jobs:
 
         # Build angular app with prod configuration
       - name: Build dev app
-        run: npm run build:prod
-
-        # Archive dev artifact
-      - name: Archive dev artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: public
-          path: ./frontend/public
+        run: npm run build --configuration=production
           
         # Deploy app to Firebase
       - name: Deploy app to firebase (prod-cs-careers-vt-website)
