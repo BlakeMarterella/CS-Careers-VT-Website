@@ -1,6 +1,6 @@
 {
     "hosting": {
-      "public": "dist/frontend",
+      "public": "dist/cs-careers-vt-website",
       "rewrites": [
         {
           "source": "**",
