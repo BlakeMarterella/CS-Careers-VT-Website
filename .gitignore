@@ -9,6 +9,8 @@
 /.npmrc
 *.js
 *.js.map
+.angular
+/.angular
 
 # others
 /.vscode
