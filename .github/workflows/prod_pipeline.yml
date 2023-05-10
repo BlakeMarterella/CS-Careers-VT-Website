@@ -33,13 +33,6 @@ jobs:
         # Build angular app with prod configuration
       - name: Build dev app
         run: npm run build --configuration=production
-
-        # Archive dev artifact
-      - name: Archive dev artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: public
-          path: ./dist/public
           
         # Deploy app to Firebase
       - name: Deploy app to firebase (prod-cs-careers-vt-website)
