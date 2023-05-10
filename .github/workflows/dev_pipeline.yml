@@ -47,7 +47,7 @@ jobs:
         with:
           args: deploy --only hosting
         env:
-          GCP_SA_KEY: ${{ secrets.FIREBASE_PROD_SA_KEY }}
+          GCP_SA_KEY: ${{ secrets.FIREBASE_DEV_SA_KEY }}
           PROJECT_ID: "dev-cs-careers-vt-website"
           PROJECT_PATH: "./"
       - run: echo "If you made it this far, high fives all around!"
