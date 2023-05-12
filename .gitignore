@@ -11,6 +11,11 @@
 *.js.map
 .angular
 /.angular
+/.angular/*
+/.angular/**
+.angular/**
+/.angular/*/*
+.angular/cache
 
 # others
 /.vscode
