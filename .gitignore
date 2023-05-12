@@ -15,7 +15,7 @@
 /.angular/**
 .angular/**
 /.angular/*/*
-.angular/cache
+/.angular/cache
 
 # others
 /.vscode
